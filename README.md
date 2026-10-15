@@ -2,6 +2,8 @@
 
 BlastLoop is Ross Shaw's practical coding framework for AI agents: **Blast**, **Mid**, and **Inner** write code at different altitudes, then **T1 structural**, **T2 bug/ops**, and **T3 adversarial** test it in order.
 
+**Why it exists:** AI coding agents make teams faster, but they also make failure faster. BlastLoop applies an operations mindset to agent work: each change has an owner at the right altitude, and every result passes structural, operational and adversarial gates in a fixed order before it ships.
+
 > **Open newsletter / public write-up is live.**
 > Fuller BlastLoop explanation: WORLDWRIGHT Issue 3, [AI Did Not Remove Engineering Failure. It Made It Faster.](https://worldwright.beehiiv.com/p/ai-did-not-remove-engineering-failure)
 

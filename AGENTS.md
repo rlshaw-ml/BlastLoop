@@ -25,3 +25,9 @@ Restart like this:
 **Structure first, function second, attack third.**
 
 See [`docs/HANDOFFS.md`](./docs/HANDOFFS.md) for the required handoff packet and route rules. A stage may recommend a fix, but the owning altitude still decides and implements it.
+
+## Three-way test
+
+Name the **UX**, **DX**, and **AX** effect of each finding or change. Convert or redesign only when all three rise or stay even. When a candidate drops one side, leave it unapplied and send it back to the altitude that can raise all three.
+
+Shared definitions, the implicit-state smell, and the defect threshold are in [`docs/UX-DX-AX.md`](./docs/UX-DX-AX.md). The handoff lines are in [`docs/HANDOFFS.md`](./docs/HANDOFFS.md).

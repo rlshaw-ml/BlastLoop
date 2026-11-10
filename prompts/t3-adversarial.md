@@ -59,12 +59,36 @@ Evidence for a limit, reservation, authorization check, price source, or alert i
 
 The same eight items are required in the T3 packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md). Keep the two lists the same.
 
+## Attack classes
+
+These classes are a floor, not a ceiling. Run them on every T3 pass. They apply to any stack. A named stack below is only an illustration.
+
+For each class, record one concrete attack you attempted and the evidence: a test, a request and response, or a ruled-out reason. Cover every property in the class. One ruled-out reason can cover a property the product does not have.
+
+A found issue is a defect. It blocks exit until the owning altitude fixes it and **T3** passes again. A structural defect restarts at **T1**. A non-structural defect goes to **T2**, then **T3** runs again.
+
+1. **Inbound webhooks and callbacks.** Signature verification, a timestamp window, replay rejection, idempotent processing, and out-of-order events. Illustration: a signed HTTP callback, or any queue consumer.
+2. **Payment and entitlement abuse.** Plan, quantity, coupon, refund, trial, dispute or chargeback, and entitlement changes. Only a server-side ledger decides. The same rule covers any client-writable field (mass assignment). Illustration: a checkout form, or any settings payload.
+3. **Model and LLM safety.** Direct and indirect prompt injection. Treat model output as untrusted: no exec, render, or tool use until it is validated. Hidden prompt, rubric, or formula extraction through an oracle or inversion, from public or free responses. Data leakage through the model. Excessive agency. Illustration: a chat completion, or any generator whose text a later step trusts.
+4. **Resource and spend exhaustion.** Fail-closed ceilings on any metered resource (model tokens, email, SMS, compute, storage). Oversized or looping requests. An operator kill switch that stops paid calls without a deploy. Illustration: a token budget, or any metered worker.
+5. **Agent and tool protocol surfaces.** Tool poisoning, untrusted tool output, confused deputy, secrets in tool arguments or results, unsafe shell interpolation in a CLI, and env leakage. This covers MCP and any tool server or plugin. Illustration: a tool-calling agent, or a CLI that shells out.
+6. **Session, key, and identity lifecycle.** Revoke, expire, and rotate take effect on the next request, with no cache window. Account-linking hijack. Email-change, reset, magic-link, and invite takeover (host header, open redirect, token reuse, token in logs or the referrer). Enumeration and timing on login, signup, and object ids. Illustration: a cookie session, or any bearer token.
+7. **Secrets and PII in runtime surfaces.** Logs, error payloads, client bundles, CLI or tool output, and analytics. Retention, and whether delete and export are complete. Illustration: an API error body, or a crash report.
+8. **Supply chain and release.** Lockfile integrity, dependency confusion, install scripts, publish provenance and signing, package-name squatting, and advisories. Illustration: a package publish, or any image release.
+9. **Classic web.** Injection (SQL, command, template, path traversal, SSRF, deserialization), XSS, CSRF on cookie flows, CORS, content security policy and clickjacking, cache and CDN rules on authenticated or private data (`no-store`), security headers, verbose errors, default credentials, and debug routes. Illustration: an HTTP handler that builds a query, a path, or markup.
+10. **Concurrency and recovery.** Races and time-of-check to time-of-use on any balance, quota, or state transition. Idempotency keys on retries. Rollback and recovery paths. Illustration: a balance debit, or any check that happens before the write.
+
+After the ten classes, ask what general class of attack this product would invite that is not listed. Record at least one product-specific novel probe, with the same evidence rule.
+
+The same classes are required in the T3 packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md). Keep the two lists the same.
+
 ## What to produce
 - the attack cases you tried
 - the failures you found or the risks you ruled out
 - a clear judgment on whether each issue is structural or non-structural
 - **Owner Blockers**, or `none`
 - the completed **Public surface and abuse economics** section, or the one-line skip when the product has no public door and no per-request spend
+- one evidence line per attack class, plus one product-specific novel probe
 
 A defect found here stays open until the owning altitude fixes it and **T3** passes again. Pass only when no unfixed defects remain.
 
@@ -76,6 +100,8 @@ Do not pass while a found defect is still unfixed.
 Do not pass on a comment that claims a limit, a budget, or an authorization check.
 Do not treat a missing or incomplete **Public surface and abuse economics** section as a local patch.
 Do not skip that section when the product is publicly reachable or spends money per request.
+Do not pass an attack class with no attempted attack and no ruled-out reason.
+Do not exit without the product-specific novel probe.
 
 ## Communication / handoff
 Use the packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md) for every outbound handoff.
@@ -84,7 +110,7 @@ Use the packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md) for every outbound h
 - Then follow the restart loop: **T1 -> Blast/Mid/Inner correction -> T2 -> T3**.
 - If the **Public surface and abuse economics** section is missing or incomplete when it is required, that is structural. Route to **T1**. **Mid** owns the correction. The defect stays open until **T3** passes again.
 - If you find a non-structural defect, send it to **T2 bug/ops** with the required packet. After T2 fixes it, run **T3** again.
-- If the result holds and no unfixed defects remain, stop with a pass packet. That packet is the final report: stages run, restarts, fixes, tests, **ROTATE**, **HISTORY-PII**, and **Owner Blockers**. Carry **ROTATE** and **HISTORY-PII** forward from the latest T2 packet. When the section is required, the pass packet still includes the eight answers.
+- If the result holds and no unfixed defects remain, stop with a pass packet. That packet is the final report: stages run, restarts, fixes, tests, **ROTATE**, **HISTORY-PII**, **Owner Blockers**, the attack-class evidence, and the novel probe. Carry **ROTATE** and **HISTORY-PII** forward from the latest T2 packet. When the public-surface section is required, the pass packet still includes the eight answers.
 - You may recommend a fix that would block the attack path, but mark it as advice only.
 - Do **not** decide, merge, or silently apply a **Blast**, **Mid**, **Inner**, or **T2** fix for another layer.
 - Produce the handoff packet before the run ends. Announcing that this stage will start does not finish the turn.

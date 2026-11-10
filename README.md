@@ -62,7 +62,7 @@ T2 fixes bugs and operational issues directly when the structure is already soun
 If T2 discovers the issue is actually architectural, it escalates back to T1 instead of papering over the problem locally.
 
 ### T3 adversarial
-T3 attacks the result: edge cases, misuse, race conditions, weird inputs, brittle assumptions, security posture, rollback paths, and failure behavior.
+T3 attacks the result: edge cases, misuse, race conditions, weird inputs, brittle assumptions, security posture, rollback paths, and failure behavior. On every pass it also runs the attack classes in [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md): each class needs an attempted attack and evidence, a hit blocks exit, and the list is a floor plus one product-specific novel probe.
 
 If T3 finds a **structural** problem, the loop restarts like this:
 

@@ -10,7 +10,7 @@
 
 1. [`prompts/t1-structural.md`](./prompts/t1-structural.md)
 2. [`prompts/t2-bug-ops.md`](./prompts/t2-bug-ops.md), including the mandatory secrets and privacy gate
-3. [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md), including the cross-tenant check when accounts or tenants exist, and **Public surface and abuse economics** on every pass for a product that is publicly reachable or spends money per request
+3. [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md), including the cross-tenant check when accounts or tenants exist, **Public surface and abuse economics** on every pass for a product that is publicly reachable or spends money per request, and the attack classes on every pass
 
 ## Restart rule
 
@@ -30,7 +30,7 @@ Only items that need the owner may remain: keys, DNS, money, legal, or product d
 
 ## Exit
 
-The loop is complete only when **T3** passes with no unfixed defects. The final report lists stages run, restarts, fixes, tests, **ROTATE**, **HISTORY-PII**, and **Owner Blockers**.
+The loop is complete only when **T3** passes with no unfixed defects. The final report lists stages run, restarts, fixes, tests, **ROTATE**, **HISTORY-PII**, **Owner Blockers**, the attack-class evidence, and the novel probe.
 
 ## Anti-stall
 
@@ -49,6 +49,12 @@ Skip it only when the product has no public door and no per-request spend, and s
 The section lives in [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md) and in the T3 packet in [`docs/HANDOFFS.md`](./docs/HANDOFFS.md).
 
 **T3** writes the section during its review. A missing or incomplete section, when it is required, is a defect and it is structural. Restart at **T1**. **Mid** owns the correction. It stays open until **T3** passes again.
+
+## Attack classes
+
+On every **T3** pass, run the attack classes in [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md) and in the T3 packet in [`docs/HANDOFFS.md`](./docs/HANDOFFS.md). The classes are inbound webhooks, payment and entitlement abuse, model safety, resource and spend exhaustion, tool-protocol surfaces, session and identity lifecycle, secrets and personal data in runtime surfaces, supply chain, classic web, and concurrency and recovery.
+
+Each class needs one attempted attack and evidence: a test, a request and response, or a ruled-out reason. A found issue is a defect and blocks exit. The list is a floor. Also record one product-specific novel probe.
 
 See [`docs/HANDOFFS.md`](./docs/HANDOFFS.md) for the required handoff packet and route rules. A stage may recommend a fix, but the owning altitude still decides and implements it.
 

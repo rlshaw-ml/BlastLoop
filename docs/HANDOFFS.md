@@ -61,6 +61,27 @@ Evidence for a limit, reservation, authorization check, price source, or alert i
 
 "None" is a complete answer only when the inventory shows that case does not exist, and the packet says which inventory fact makes it none. A blank item, a partial route list, or comment-only evidence is incomplete.
 
+## T3 packet: attack classes
+
+Every T3 packet records the attack classes below. The same classes are defined in [`prompts/t3-adversarial.md`](../prompts/t3-adversarial.md). Keep the two lists the same. They apply to any stack. A named stack in the prompt is only an illustration.
+
+For each class, record one concrete attack you attempted and the evidence: a test, a request and response, or a ruled-out reason. Cover every property in the class. One ruled-out reason can cover a property the product does not have.
+
+A found issue is a defect. It blocks exit until the owning altitude fixes it and **T3** passes again.
+
+1. **Inbound webhooks and callbacks** - signature verification, a timestamp window, replay rejection, idempotent processing, and out-of-order events.
+2. **Payment and entitlement abuse** - plan, quantity, coupon, refund, trial, dispute or chargeback, and entitlement changes. Only a server-side ledger decides. The same rule covers any client-writable field (mass assignment).
+3. **Model and LLM safety** - direct and indirect prompt injection. Model output stays untrusted: no exec, render, or tool use until it is validated. Hidden prompt, rubric, or formula extraction through an oracle or inversion, from public or free responses. Data leakage through the model. Excessive agency.
+4. **Resource and spend exhaustion** - fail-closed ceilings on any metered resource (model tokens, email, SMS, compute, storage), oversized or looping requests, and an operator kill switch that stops paid calls without a deploy.
+5. **Agent and tool protocol surfaces** - tool poisoning, untrusted tool output, confused deputy, secrets in tool arguments or results, unsafe shell interpolation in a CLI, and env leakage. This covers MCP and any tool server or plugin.
+6. **Session, key, and identity lifecycle** - revoke, expire, and rotate take effect on the next request, with no cache window. Account-linking hijack. Email-change, reset, magic-link, and invite takeover (host header, open redirect, token reuse, token in logs or the referrer). Enumeration and timing on login, signup, and object ids.
+7. **Secrets and PII in runtime surfaces** - logs, error payloads, client bundles, CLI or tool output, and analytics. Retention, and whether delete and export are complete.
+8. **Supply chain and release** - lockfile integrity, dependency confusion, install scripts, publish provenance and signing, package-name squatting, and advisories.
+9. **Classic web** - injection (SQL, command, template, path traversal, SSRF, deserialization), XSS, CSRF on cookie flows, CORS, content security policy and clickjacking, cache and CDN rules on authenticated or private data (`no-store`), security headers, verbose errors, default credentials, and debug routes.
+10. **Concurrency and recovery** - races and time-of-check to time-of-use on any balance, quota, or state transition. Idempotency keys on retries. Rollback and recovery paths.
+
+These classes are a floor, not a ceiling. Ask what general class of attack this product would invite that is not listed. Record at least one product-specific novel probe, with the same evidence rule.
+
 ## T2 secrets addendum
 
 Every **T2** packet also includes:
@@ -88,6 +109,8 @@ The loop is complete only when **T3** passes with no unfixed defects. The final 
 - **ROTATE**, from the latest T2 packet
 - **HISTORY-PII**, from the latest T2 packet
 - **Owner Blockers**
+- attack-class evidence, one line per class
+- the product-specific novel probe
 
 ## Anti-stall
 
@@ -103,6 +126,7 @@ Each stage produces this packet before the run ends. Announcing that a stage wil
 - **T3 restart loop:** **T3 -> T1 -> Blast/Mid/Inner correction -> T2 -> T3**. When **Public surface and abuse economics** is missing or incomplete, the correction owner is **Mid**: **T3 -> T1 -> Mid -> T2 -> T3**.
 - When the system has accounts or tenants, **T3** checks that another account's resource returns **404** or **403** on read, export, rescan, cancel, and delete. **200**, **303**, and **409** on that path are defects.
 - On every T3 pass for a product that is publicly reachable or spends money per request, **T3** completes **Public surface and abuse economics**. A one-line skip is allowed only when the product has no public door and no per-request spend.
+- On every T3 pass, **T3** records the attack classes and one product-specific novel probe. Each class needs an attempted attack and evidence. A found issue is a defect and blocks exit.
 - **Never skip ownership.** If another altitude owns the decision, send the packet there instead of deciding for it.
 - **Do not merge or silently apply another layer's fix.** Recommenders can suggest; owners choose and implement.
 
@@ -122,3 +146,5 @@ Each stage produces this packet before the run ends. Announcing that a stage wil
 - ending a turn after only announcing that a stage will start
 - a T3 pass on a publicly reachable or per-request-spend product because a comment says a limit, a budget, or an authorization check exists
 - **T2** or **Inner** locally patching a missing or incomplete **Public surface and abuse economics** section instead of restarting through **T1** to **Mid**
+- a T3 pass that skips an attack class, or that records a class with no attempted attack and no ruled-out reason
+- exiting without the product-specific novel probe

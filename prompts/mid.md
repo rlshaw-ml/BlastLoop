@@ -58,3 +58,5 @@ Use the packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md) for every outbound h
 - Produce the handoff packet before the run ends. Announcing that this stage will start does not finish the turn.
 
 If **T1** later reports a structural issue in this subsystem, take the correction here. Fix that defect here and re-verify before the loop exits.
+
+If **T1** assigns a missing or incomplete **Public surface and abuse economics** section, own that correction across the routes, budgets, authorization, and alerts in this subsystem. Fix it here, re-verify, and hand the result back to **T1**. The defect stays open until **T3** passes again.

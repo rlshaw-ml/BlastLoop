@@ -23,9 +23,10 @@ BlastLoop is Ross Shaw's practical coding framework for AI agents: **Blast**, **
    - [`prompts/t1-structural.md`](./prompts/t1-structural.md)
    - [`prompts/t2-bug-ops.md`](./prompts/t2-bug-ops.md)
    - [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md)
-6. If T3 finds a structural problem, restart through T1, route correction back to Blast, Mid, or Inner, then run T2 and T3 again.
+6. If T3 finds a structural problem, restart through T1, route correction back to Blast, Mid, or Inner, then run T2 and T3 again. If T3 finds a non-structural defect, send it to T2, then run T3 again. Exit only when T3 passes with no unfixed defects.
+7. On every T3 pass, complete **Public surface and abuse economics** when the product is publicly reachable or spends money per request (a paid API, a model call, email, SMS, or any other metered call). Skip it only when the product has no public door and no per-request spend, and say why in one line. A missing or incomplete section restarts at T1, and Mid owns the correction.
 
-That is the whole public cut: load the right prompt, write at the right altitude, then test in the right order.
+That is the whole public cut: load the right prompt, write at the right altitude, then test in the right order. A product that is publicly reachable or spends money per request also needs the abuse-economics section from T3.
 
 See [`docs/HANDOFFS.md`](./docs/HANDOFFS.md) for the required handoff packet and routing rules. A stage may recommend a fix from its own vantage, but the owning altitude still decides and implements the change.
 
@@ -61,13 +62,15 @@ T2 fixes bugs and operational issues directly when the structure is already soun
 If T2 discovers the issue is actually architectural, it escalates back to T1 instead of papering over the problem locally.
 
 ### T3 adversarial
-T3 attacks the result: edge cases, misuse, race conditions, weird inputs, brittle assumptions, security posture, rollback paths, and failure behavior.
+T3 attacks the result: edge cases, misuse, race conditions, weird inputs, brittle assumptions, security posture, rollback paths, and failure behavior. On every pass it also runs the attack classes in [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md): each class needs an attempted attack and evidence, a hit blocks exit, and the list is a floor plus one product-specific novel probe.
 
 If T3 finds a **structural** problem, the loop restarts like this:
 
 **T3 -> T1 -> B/M/I correction -> T2 -> T3**
 
 That restart rule matters. Structural breakage should be repaired structurally, not patched over as a local bug.
+
+On every pass for a product that is publicly reachable or spends money per request, T3 also completes **Public surface and abuse economics**: unauthenticated routes and second doors, atomic budgets on expensive routes, account cost, clone surface, object-level authorization, server-side prices and credits, alerts, and release leftovers. Skip it only when the product has no public door and no per-request spend, and say why in one line. A missing or incomplete section restarts at T1, and Mid owns the correction. The checks live in [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md) and in the T3 packet in [`docs/HANDOFFS.md`](./docs/HANDOFFS.md). Evidence is a code read and a test. A comment that claims a limit is enforced leaves the section incomplete.
 
 ## What this is not
 

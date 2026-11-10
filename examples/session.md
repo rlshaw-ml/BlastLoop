@@ -64,7 +64,13 @@ T3 attacks the feature:
 - interrupts the network mid-download
 - submits malformed filter values
 
-T3 finds that malformed filters are rejected cleanly and large exports stream correctly. No new structural issue is found, so the loop ends.
+T3 finds that malformed filters are rejected cleanly and large exports stream correctly. No new structural issue is found.
+
+T3 skips **Public surface and abuse economics** in one line: this admin export has no public door and no per-request spend. If the product were publicly reachable or spent money per request, the eight answers would be required, and a missing or incomplete section would restart at T1 with correction owned by Mid.
+
+T3 records the attack classes. Webhooks, payments, model calls, and tool servers are ruled out because this export has none. T3 attempts a very large filtered export and a repeated download. Both hold. The novel probe is a filter that changes after the export stream has started. The stream keeps the filter it opened with.
+
+The loop ends.
 
 ## Result
 

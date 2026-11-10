@@ -62,6 +62,7 @@ If the fix requires changing system or subsystem shape, escalate back to **T1**.
 Do not turn this into open-ended polish.
 Do not hand off a clean secrets report when the sweep scanned 0 files or missed the canary.
 Do not print secret or personal values in the packet.
+Do not treat a missing or incomplete **Public surface and abuse economics** section as a local bug. Route it back to **T1**, which sends that correction to **Mid**.
 
 ## Communication / handoff
 Use the packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md) for every outbound handoff.

@@ -14,6 +14,7 @@ Inspect the result for structural problems before anyone starts chasing ordinary
 - duplicated structure that should live higher
 - local patches hiding architectural issues
 - independent flags that act as one state, including an impossible combination or a stuck state a user can reach
+- a **T3** restart because the **Public surface and abuse economics** section is missing or incomplete on a product that is publicly reachable or spends money per request. On a first pass, T3 has not written that section yet, so its absence alone is not a T1 failure.
 
 ## Implicit state
 
@@ -49,6 +50,7 @@ Use the packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md) for every outbound h
 
 - If structure passes, hand off to **T2 bug/ops** with the required packet.
 - If structure fails, route correction to **Blast**, **Mid**, or **Inner** with the required packet.
+- If **T3** restarts because the **Public surface and abuse economics** section is missing or incomplete, route that correction to **Mid**. That defect stays open until **Mid** fixes it and **T3** passes again.
 - You may recommend a fix that would work from your structural vantage, but mark it as advice only.
 - Do **not** decide, merge, or silently apply the build-layer fix for **Blast**, **Mid**, or **Inner**.
 - A structural defect stays open until the owning altitude fixes it and **T1** passes again.

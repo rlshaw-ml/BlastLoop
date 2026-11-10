@@ -45,3 +45,5 @@ Use the packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md) for every outbound h
 - Name any subsystem boundary or contract the next owner must preserve.
 
 If **T1** later reports a structural issue in this subsystem, take the correction here.
+
+If **T1** assigns a missing or incomplete **Public surface and abuse economics** section, own that correction across the routes, budgets, authorization, and alerts in this subsystem, then hand the result back to **T1**.

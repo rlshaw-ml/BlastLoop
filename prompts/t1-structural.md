@@ -13,6 +13,7 @@ Inspect the result for structural problems before anyone starts chasing ordinary
 - missing or leaky interfaces
 - duplicated structure that should live higher
 - local patches hiding architectural issues
+- a **T3** restart because the **Public surface and abuse economics** section is missing or incomplete. On a first pass, T3 has not written that section yet, so its absence alone is not a T1 failure.
 
 ## What to produce
 Produce one of two outcomes:
@@ -31,6 +32,7 @@ Use the packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md) for every outbound h
 
 - If structure passes, hand off to **T2 bug/ops** with the required packet.
 - If structure fails, route correction to **Blast**, **Mid**, or **Inner** with the required packet.
+- If **T3** restarts because the **Public surface and abuse economics** section is missing or incomplete, route that correction to **Mid**.
 - You may recommend a fix that would work from your structural vantage, but mark it as advice only.
 - Do **not** decide, merge, or silently apply the build-layer fix for **Blast**, **Mid**, or **Inner**.
 - After correction, run **T1** again before moving on.

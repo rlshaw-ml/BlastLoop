@@ -24,8 +24,9 @@ BlastLoop is Ross Shaw's practical coding framework for AI agents: **Blast**, **
    - [`prompts/t2-bug-ops.md`](./prompts/t2-bug-ops.md)
    - [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md)
 6. If T3 finds a structural problem, restart through T1, route correction back to Blast, Mid, or Inner, then run T2 and T3 again.
+7. Before a public release, confirm T3 completed the **Public surface and abuse economics** section. A public release is a package publish, a new domain, public docs or a help center, a launch post, or, on a product already reachable outside the project, a change that adds or alters an unauthenticated route, a second door, a spend or credit path, a route that takes a caller-supplied object key, or a response someone outside the project can read. If that section is missing or incomplete, restart at T1 and send the correction to Mid.
 
-That is the whole public cut: load the right prompt, write at the right altitude, then test in the right order.
+That is the whole public cut: load the right prompt, write at the right altitude, then test in the right order. A public release also needs the abuse-economics section from T3.
 
 See [`docs/HANDOFFS.md`](./docs/HANDOFFS.md) for the required handoff packet and routing rules. A stage may recommend a fix from its own vantage, but the owning altitude still decides and implements the change.
 
@@ -68,6 +69,8 @@ If T3 finds a **structural** problem, the loop restarts like this:
 **T3 -> T1 -> B/M/I correction -> T2 -> T3**
 
 That restart rule matters. Structural breakage should be repaired structurally, not patched over as a local bug.
+
+Before a public release, as defined in the quick start above, T3 also completes **Public surface and abuse economics**: unauthenticated routes and second doors, atomic budgets on expensive routes, account cost, clone surface, object-level authorization, server-side prices and credits, alerts, and release leftovers. A missing or incomplete section restarts at T1, and Mid owns the correction. The checks live in [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md) and in the T3 packet in [`docs/HANDOFFS.md`](./docs/HANDOFFS.md). Evidence is a code read and a test. A comment that claims a limit is enforced does not pass the section.
 
 ## What this is not
 

@@ -23,6 +23,7 @@ Fix direct bugs and operational issues once T1 has cleared the structure.
 Do not smuggle in architecture work when the real issue is structural.
 If the fix requires changing system or subsystem shape, escalate back to **T1**.
 Do not turn this into open-ended polish.
+Do not treat a missing or incomplete **Public surface and abuse economics** section as a local bug. Route it back to **T1**, which sends that correction to **Mid**.
 
 ## Communication / handoff
 Use the packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md) for every outbound handoff.

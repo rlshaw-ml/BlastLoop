@@ -21,6 +21,7 @@ Write code at this altitude. Finish the local change instead of drifting upward.
 Refuse or escalate:
 - architecture moves that belong to Blast
 - subsystem reshaping that belongs to Mid
+- a missing or incomplete **Public surface and abuse economics** section (Mid owns that correction after T1 routes it)
 - broad cleanup unrelated to the task
 - clever abstractions added only for future possibility
 

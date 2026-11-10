@@ -24,4 +24,12 @@ Restart like this:
 
 **Structure first, function second, attack third.**
 
+## Public release gate
+
+Before any public release, **T3** completes **Public surface and abuse economics**. A public release is npm publish or any other package publish, a new domain, public docs or a help center, a launch post, or, on a product already reachable outside the project, a change that adds or alters an unauthenticated route, a second door, a spend or credit path, a route that takes a caller-supplied object key, or a response someone outside the project can read.
+
+The section lives in [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md) and in the T3 packet in [`docs/HANDOFFS.md`](./docs/HANDOFFS.md).
+
+**T3** writes the section during its review. A missing or incomplete section in the release packet is structural. Restart at **T1**. **Mid** owns the correction.
+
 See [`docs/HANDOFFS.md`](./docs/HANDOFFS.md) for the required handoff packet and route rules. A stage may recommend a fix, but the owning altitude still decides and implements it.

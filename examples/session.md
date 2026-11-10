@@ -64,7 +64,11 @@ T3 attacks the feature:
 - interrupts the network mid-download
 - submits malformed filter values
 
-T3 finds that malformed filters are rejected cleanly and large exports stream correctly. No new structural issue is found, so the loop ends.
+T3 finds that malformed filters are rejected cleanly and large exports stream correctly. No new structural issue is found.
+
+T3 records **Public surface and abuse economics** as out of scope for a public release: this session does not publish a package, open a domain, ship public docs or a help center, or post a launch, and the admin table is not reachable outside the project. The route note still lists one authenticated admin endpoint that reads the database and writes a log. It does not call a model, send email, or hit a paid API, and it adds no second door. If this export were part of a public release, a missing or incomplete section would restart at T1 with correction owned by Mid.
+
+The loop ends.
 
 ## Result
 

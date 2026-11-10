@@ -33,4 +33,7 @@ Use the packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md) for every outbound h
 - If structure fails, route correction to **Blast**, **Mid**, or **Inner** with the required packet.
 - You may recommend a fix that would work from your structural vantage, but mark it as advice only.
 - Do **not** decide, merge, or silently apply the build-layer fix for **Blast**, **Mid**, or **Inner**.
+- A structural defect stays open until the owning altitude fixes it and **T1** passes again.
+- Name **Owner Blockers** (keys, DNS, money, legal, or product decisions), or write `none`.
+- Produce the handoff packet before the run ends. Announcing that this stage will start does not finish the turn.
 - After correction, run **T1** again before moving on.

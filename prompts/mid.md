@@ -33,6 +33,7 @@ Refuse or escalate:
 - make the subsystem coherent on its own terms
 - keep file ownership and responsibilities obvious
 - create only the abstractions this subsystem already needs
+- fix defects owned at this altitude, including ones found here, and re-verify before handoff
 
 ## Communication / handoff
 Use the packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md) for every outbound handoff.
@@ -43,5 +44,7 @@ Use the packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md) for every outbound h
 - You may recommend a fix that would work from your subsystem vantage, but mark it as advice only.
 - Do **not** decide, merge, or silently apply **Blast** architecture choices or **Inner** local implementation choices for them.
 - Name any subsystem boundary or contract the next owner must preserve.
+- Name **Owner Blockers** (keys, DNS, money, legal, or product decisions), or write `none`.
+- Produce the handoff packet before the run ends. Announcing that this stage will start does not finish the turn.
 
-If **T1** later reports a structural issue in this subsystem, take the correction here.
+If **T1** later reports a structural issue in this subsystem, take the correction here. Fix that defect here and re-verify before the loop exits.

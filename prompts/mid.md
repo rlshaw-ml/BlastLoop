@@ -21,6 +21,16 @@ Write code at this altitude. Do not turn the job into a pure plan.
 
 Prefer clear ownership inside the subsystem over clever abstraction.
 
+## Three-way test
+
+Name the UX, DX, and AX effect of the subsystem change before you apply it. Convert or redesign only when each side rises or stays even. When a candidate drops one side, leave it unapplied. Pick another change at this altitude that passes, or hand the packet to the altitude that owns a shape where all three can rise or stay even.
+
+When several flags in this slice work as one state and the test passes, write explicit named states and the allowed transitions. Pin the behavior users already rely on with tests before that conversion. Leave a reachable stuck state out of the behavior you pin.
+
+If those flags stay inside one component, hand the conversion to **Inner**. If they are a top-level contract across the system, hand them to **Blast**.
+
+Fill **UX / DX / AX effect** and **State inventory** (`none` when there is no flag cluster) on the handoff packet. See [`docs/UX-DX-AX.md`](../docs/UX-DX-AX.md).
+
 ## What to refuse
 Refuse or escalate:
 - top-level architecture changes that belong to Blast
@@ -33,6 +43,7 @@ Refuse or escalate:
 - make the subsystem coherent on its own terms
 - keep file ownership and responsibilities obvious
 - create only the abstractions this subsystem already needs
+- fix defects owned at this altitude, including ones found here, and re-verify before handoff
 
 ## Communication / handoff
 Use the packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md) for every outbound handoff.
@@ -43,7 +54,9 @@ Use the packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md) for every outbound h
 - You may recommend a fix that would work from your subsystem vantage, but mark it as advice only.
 - Do **not** decide, merge, or silently apply **Blast** architecture choices or **Inner** local implementation choices for them.
 - Name any subsystem boundary or contract the next owner must preserve.
+- Name **Owner Blockers** (keys, DNS, money, legal, or product decisions), or write `none`.
+- Produce the handoff packet before the run ends. Announcing that this stage will start does not finish the turn.
 
-If **T1** later reports a structural issue in this subsystem, take the correction here.
+If **T1** later reports a structural issue in this subsystem, take the correction here. Fix that defect here and re-verify before the loop exits.
 
-If **T1** assigns a missing or incomplete **Public surface and abuse economics** section, own that correction across the routes, budgets, authorization, and alerts in this subsystem, then hand the result back to **T1**.
+If **T1** assigns a missing or incomplete **Public surface and abuse economics** section, own that correction across the routes, budgets, authorization, and alerts in this subsystem. Fix it here, re-verify, and hand the result back to **T1**. The defect stays open until **T3** passes again.

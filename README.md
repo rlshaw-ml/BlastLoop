@@ -23,10 +23,10 @@ BlastLoop is Ross Shaw's practical coding framework for AI agents: **Blast**, **
    - [`prompts/t1-structural.md`](./prompts/t1-structural.md)
    - [`prompts/t2-bug-ops.md`](./prompts/t2-bug-ops.md)
    - [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md)
-6. If T3 finds a structural problem, restart through T1, route correction back to Blast, Mid, or Inner, then run T2 and T3 again.
-7. Before a public release, confirm T3 completed the **Public surface and abuse economics** section. A public release is a package publish, a new domain, public docs or a help center, a launch post, or, on a product already reachable outside the project, a change that adds or alters an unauthenticated route, a second door, a spend or credit path, a route that takes a caller-supplied object key, or a response someone outside the project can read. If that section is missing or incomplete, restart at T1 and send the correction to Mid.
+6. If T3 finds a structural problem, restart through T1, route correction back to Blast, Mid, or Inner, then run T2 and T3 again. If T3 finds a non-structural defect, send it to T2, then run T3 again. Exit only when T3 passes with no unfixed defects.
+7. On every T3 pass, complete **Public surface and abuse economics** when the product is publicly reachable or spends money per request (a paid API, a model call, email, SMS, or any other metered call). Skip it only when the product has no public door and no per-request spend, and say why in one line. A missing or incomplete section restarts at T1, and Mid owns the correction.
 
-That is the whole public cut: load the right prompt, write at the right altitude, then test in the right order. A public release also needs the abuse-economics section from T3.
+That is the whole public cut: load the right prompt, write at the right altitude, then test in the right order. A product that is publicly reachable or spends money per request also needs the abuse-economics section from T3.
 
 See [`docs/HANDOFFS.md`](./docs/HANDOFFS.md) for the required handoff packet and routing rules. A stage may recommend a fix from its own vantage, but the owning altitude still decides and implements the change.
 
@@ -70,7 +70,7 @@ If T3 finds a **structural** problem, the loop restarts like this:
 
 That restart rule matters. Structural breakage should be repaired structurally, not patched over as a local bug.
 
-Before a public release, as defined in the quick start above, T3 also completes **Public surface and abuse economics**: unauthenticated routes and second doors, atomic budgets on expensive routes, account cost, clone surface, object-level authorization, server-side prices and credits, alerts, and release leftovers. A missing or incomplete section restarts at T1, and Mid owns the correction. The checks live in [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md) and in the T3 packet in [`docs/HANDOFFS.md`](./docs/HANDOFFS.md). Evidence is a code read and a test. A comment that claims a limit is enforced does not pass the section.
+On every pass for a product that is publicly reachable or spends money per request, T3 also completes **Public surface and abuse economics**: unauthenticated routes and second doors, atomic budgets on expensive routes, account cost, clone surface, object-level authorization, server-side prices and credits, alerts, and release leftovers. Skip it only when the product has no public door and no per-request spend, and say why in one line. A missing or incomplete section restarts at T1, and Mid owns the correction. The checks live in [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md) and in the T3 packet in [`docs/HANDOFFS.md`](./docs/HANDOFFS.md). Evidence is a code read and a test. A comment that claims a limit is enforced leaves the section incomplete.
 
 ## What this is not
 
@@ -98,6 +98,7 @@ See [`docs/COMPARISON.md`](./docs/COMPARISON.md) for a short side-by-side.
 - [`AGENTS.md`](./AGENTS.md) - routing card for which prompt to load
 - [`prompts/`](./prompts/) - loadable instructions for each build and test role
 - [`docs/HANDOFFS.md`](./docs/HANDOFFS.md) - required handoff packet and ownership rules
+- [`docs/UX-DX-AX.md`](./docs/UX-DX-AX.md) - three-way test for user, developer, and agent experience
 - [`docs/COMPARISON.md`](./docs/COMPARISON.md) - short comparison to adjacent public methods
 - [`examples/session.md`](./examples/session.md) - fictional walkthrough of a small feature through the loop
 

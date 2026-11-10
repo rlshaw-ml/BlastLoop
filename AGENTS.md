@@ -9,8 +9,8 @@
 ## Then run the test loop in order
 
 1. [`prompts/t1-structural.md`](./prompts/t1-structural.md)
-2. [`prompts/t2-bug-ops.md`](./prompts/t2-bug-ops.md)
-3. [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md)
+2. [`prompts/t2-bug-ops.md`](./prompts/t2-bug-ops.md), including the mandatory secrets and privacy gate
+3. [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md), including the cross-tenant check when accounts or tenants exist, and **Public surface and abuse economics** on every pass for a product that is publicly reachable or spends money per request
 
 ## Restart rule
 
@@ -20,16 +20,40 @@ Restart like this:
 
 **T3 -> T1 -> route correction to Blast, Mid, or Inner -> T2 -> T3**
 
+If T3 finds a non-structural defect, send it to **T2**. After T2 fixes it, run **T3** again.
+
+## Close defects before exit
+
+Any defect found at any stage is fixed by the owning altitude and re-verified before the loop exits. A race, a missing signature check, a cross-tenant success, or a rate limit that breaks under parallel calls stays open until that fix is verified.
+
+Only items that need the owner may remain: keys, DNS, money, legal, or product decisions. Put those in the named **Owner Blockers** list in the packet. Write `none` when the list is empty.
+
+## Exit
+
+The loop is complete only when **T3** passes with no unfixed defects. The final report lists stages run, restarts, fixes, tests, **ROTATE**, **HISTORY-PII**, and **Owner Blockers**.
+
+## Anti-stall
+
+Each stage produces its handoff packet before the run ends. A turn that only announces the next stage has not finished that stage.
+
 ## Rule of thumb
 
 **Structure first, function second, attack third.**
 
-## Public release gate
+## Public surface and abuse economics
 
-Before any public release, **T3** completes **Public surface and abuse economics**. A public release is npm publish or any other package publish, a new domain, public docs or a help center, a launch post, or, on a product already reachable outside the project, a change that adds or alters an unauthenticated route, a second door, a spend or credit path, a route that takes a caller-supplied object key, or a response someone outside the project can read.
+On every **T3** pass, complete **Public surface and abuse economics** when the product is publicly reachable or spends money per request (a paid API, a model call, email, SMS, or any other metered call).
+
+Skip it only when the product has no public door and no per-request spend, and say why in one line.
 
 The section lives in [`prompts/t3-adversarial.md`](./prompts/t3-adversarial.md) and in the T3 packet in [`docs/HANDOFFS.md`](./docs/HANDOFFS.md).
 
-**T3** writes the section during its review. A missing or incomplete section in the release packet is structural. Restart at **T1**. **Mid** owns the correction.
+**T3** writes the section during its review. A missing or incomplete section, when it is required, is a defect and it is structural. Restart at **T1**. **Mid** owns the correction. It stays open until **T3** passes again.
 
 See [`docs/HANDOFFS.md`](./docs/HANDOFFS.md) for the required handoff packet and route rules. A stage may recommend a fix, but the owning altitude still decides and implements it.
+
+## Three-way test
+
+Name the **UX**, **DX**, and **AX** effect of each finding or change. Convert or redesign only when all three rise or stay even. When a candidate drops one side, leave it unapplied and send it back to the altitude that can raise all three.
+
+Shared definitions, the implicit-state smell, and the defect threshold are in [`docs/UX-DX-AX.md`](./docs/UX-DX-AX.md). The handoff lines are in [`docs/HANDOFFS.md`](./docs/HANDOFFS.md).

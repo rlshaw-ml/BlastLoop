@@ -13,7 +13,25 @@ Inspect the result for structural problems before anyone starts chasing ordinary
 - missing or leaky interfaces
 - duplicated structure that should live higher
 - local patches hiding architectural issues
-- a **T3** restart because the **Public surface and abuse economics** section is missing or incomplete. On a first pass, T3 has not written that section yet, so its absence alone is not a T1 failure.
+- independent flags that act as one state, including an impossible combination or a stuck state a user can reach
+- a **T3** restart because the **Public surface and abuse economics** section is missing or incomplete on a product that is publicly reachable or spends money per request. On a first pass, T3 has not written that section yet, so its absence alone is not a T1 failure.
+
+## Implicit state
+
+Independent flags that together act as one state are one structural smell. This includes impossible combinations and a stuck state a user can reach. The smell is not a separate product. See [`docs/UX-DX-AX.md`](../docs/UX-DX-AX.md).
+
+Record it in **State inventory**: the flags, the inferred transitions, the impossible combinations, and any stuck state a user can reach. Fill **UX / DX / AX effect** on the same packet. Mark each entry `defect` or `advice-only`.
+
+- A user can reach an impossible combination, or a stuck state: that entry is a defect. **ROUTE BACK**.
+- No user can reach it: that entry is `advice-only`. It can ride on a **PASS**.
+
+Route a defect like this:
+
+- The state crosses a slice (UI, API, webhook): **Mid**.
+- The state stays in one component: **Inner**.
+- The same state is a top-level contract across the system: **Blast**.
+
+Do not convert flags into named states. Do not fix the bug from this layer. When named states already exist and one path is simply wrong, that is a non-structural bug for **T2**, not this smell.
 
 ## What to produce
 Produce one of two outcomes:
@@ -32,7 +50,10 @@ Use the packet in [`docs/HANDOFFS.md`](../docs/HANDOFFS.md) for every outbound h
 
 - If structure passes, hand off to **T2 bug/ops** with the required packet.
 - If structure fails, route correction to **Blast**, **Mid**, or **Inner** with the required packet.
-- If **T3** restarts because the **Public surface and abuse economics** section is missing or incomplete, route that correction to **Mid**.
+- If **T3** restarts because the **Public surface and abuse economics** section is missing or incomplete, route that correction to **Mid**. That defect stays open until **Mid** fixes it and **T3** passes again.
 - You may recommend a fix that would work from your structural vantage, but mark it as advice only.
 - Do **not** decide, merge, or silently apply the build-layer fix for **Blast**, **Mid**, or **Inner**.
+- A structural defect stays open until the owning altitude fixes it and **T1** passes again.
+- Name **Owner Blockers** (keys, DNS, money, legal, or product decisions), or write `none`.
+- Produce the handoff packet before the run ends. Announcing that this stage will start does not finish the turn.
 - After correction, run **T1** again before moving on.

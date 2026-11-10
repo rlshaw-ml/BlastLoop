@@ -95,6 +95,7 @@ See [`docs/COMPARISON.md`](./docs/COMPARISON.md) for a short side-by-side.
 - [`AGENTS.md`](./AGENTS.md) - routing card for which prompt to load
 - [`prompts/`](./prompts/) - loadable instructions for each build and test role
 - [`docs/HANDOFFS.md`](./docs/HANDOFFS.md) - required handoff packet and ownership rules
+- [`docs/UX-DX-AX.md`](./docs/UX-DX-AX.md) - three-way test for user, developer, and agent experience
 - [`docs/COMPARISON.md`](./docs/COMPARISON.md) - short comparison to adjacent public methods
 - [`examples/session.md`](./examples/session.md) - fictional walkthrough of a small feature through the loop
 

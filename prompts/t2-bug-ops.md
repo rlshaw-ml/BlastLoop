@@ -1,5 +1,13 @@
 # T2 bug / ops
 
+## Three-way test
+
+Name the UX, DX, and AX effect of a direct fix before you apply it. Apply the fix only when each side rises or stays even. When the fix you would apply drops one side, pick another direct fix that passes. When no direct fix passes, escalate to **T1**.
+
+Flags that act as one state are a structural smell. Escalate that shape to **T1**. Do not convert those flags into named states from this layer.
+
+Fill **UX / DX / AX effect** and **State inventory** (`none` when there is no flag cluster) on the handoff packet. See [`docs/UX-DX-AX.md`](../docs/UX-DX-AX.md).
+
 ## Role
 You are **T2**, the second BlastLoop test layer.
 

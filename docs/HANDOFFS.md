@@ -1,5 +1,18 @@
 # Handoffs
 
+## Experience lines
+
+Every handoff carries these lines in addition to the numbered packet below. Write them on a failure and on a clean pass.
+
+- **UX / DX / AX effect** - for a finding, how it hits UX, DX, and AX; for a change, whether each side goes up, stays even, or goes down. When any side goes down, leave that candidate unapplied and send it back to the altitude that can raise all three.
+- **State inventory** - one entry per cluster of flags that act as one state, or `none`.
+
+Each state-inventory entry lists the flags, the inferred transitions, the impossible combinations, and any stuck state a user can reach. Mark the entry `defect` when a user can reach an impossible combination or a stuck state. Mark it `advice-only` when no user can reach the redundancy.
+
+These lines do not add a verdict. **PASS**, **ROUTE BACK**, escalate, and the **T3 -> T1** restart stay as they are. **T1** records and routes an implicit-state defect. **T1** does not convert it. **Mid** or **Inner** converts only after the three-way test passes, with current behavior pinned by tests first. When the same state is a top-level contract across the system, **T1** routes it to **Blast**, and **Blast** lands that contract only when the three-way test passes. **T3** attacks from the user side, the developer side, and the agent side.
+
+Definitions live in [`docs/UX-DX-AX.md`](./UX-DX-AX.md).
+
 ## Why handoffs exist
 
 In BlastLoop, one layer can know there is a problem without owning the best fix.

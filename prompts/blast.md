@@ -18,6 +18,7 @@ Write code at this altitude. Do not stop at planning alone.
 - clear ownership boundaries between subsystems
 - top-level contracts other layers can implement against
 - a short handoff note for Mid or Inner where needed
+- a system change whose UX, DX, and AX effects each rise or stay even, recorded on the handoff packet ([`docs/UX-DX-AX.md`](../docs/UX-DX-AX.md))
 
 Prefer the minimum structural change that gives the project a clean shape.
 
